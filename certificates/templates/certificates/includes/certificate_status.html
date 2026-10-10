@@ -1,0 +1,9 @@
+{% if certificate.is_revoked %}
+    <span class="badge bg-secondary certificate-status certificate-status-revoked">
+        Аннулирован
+    </span>
+{% else %}
+    <span class="badge bg-success certificate-status certificate-status-active">
+        Действует
+    </span>
+{% endif %}

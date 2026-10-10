@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "user_id": 1,
+    "event_id": 1,
+    "result_id": 1,
+    "number": "CERT-20261015-0001",
+    "issued_at": "2026-10-15T12:00:00",
+    "is_revoked": false
+  },
+  {
+    "id": 2,
+    "user_id": 1,
+    "event_id": 2,
+    "result_id": 3,
+    "number": "CERT-20261120-0002",
+    "issued_at": "2026-11-20T12:00:00",
+    "is_revoked": false
+  },
+  {
+    "id": 3,
+    "user_id": 2,
+    "event_id": 2,
+    "result_id": 4,
+    "number": "CERT-20261120-0003",
+    "issued_at": "2026-11-20T12:00:00",
+    "is_revoked": true
+  }
+]

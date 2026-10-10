@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "full_name": "Иванов Иван Иванович",
+    "email": "ivanov@example.com",
+    "role": "participant"
+  },
+  {
+    "id": 2,
+    "full_name": "Петрова Мария Сергеевна",
+    "email": "petrova@example.com",
+    "role": "participant"
+  },
+  {
+    "id": 3,
+    "full_name": "Сидоров Алексей Петрович",
+    "email": "sidorov@example.com",
+    "role": "organizer"
+  }
+]

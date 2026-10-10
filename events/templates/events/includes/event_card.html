@@ -1,0 +1,19 @@
+<article class="card event-card mb-3">
+    <div class="card-body">
+        <h2 class="card-title">
+            {{ event.title|default:"Без названия" }}
+        </h2>
+        <p class="card-text">
+            Дата: {{ event.date|date:"d.m.Y" }}
+        </p>
+        <p class="card-text">
+            Проходной балл: {{ event.min_score }}
+        </p>
+        <a
+            href="{% url 'events:detail' event.id %}"
+            class="btn btn-primary"
+        >
+            Подробнее
+        </a>
+    </div>
+</article>

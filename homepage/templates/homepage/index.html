@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Главная – Сертификаты
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-4">Сервис сертификатов</h1>
+    <p class="lead">
+        Система выдачи электронных сертификатов участникам мероприятий.
+    </p>
+    <p>
+        Здесь можно посмотреть мероприятия, проходной балл и уже
+        выданные сертификаты. Данные читаются из JSON-файлов проекта.
+    </p>
+    <p>Основные разделы:</p>
+    <a
+        href="{% url 'events:list' %}"
+        class="btn btn-primary me-2"
+    >
+        Мероприятия
+    </a>
+    <a
+        href="{% url 'certificates:list' %}"
+        class="btn btn-secondary"
+    >
+        Сертификаты
+    </a>
+{% endblock %}

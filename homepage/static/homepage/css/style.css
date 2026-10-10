@@ -1,0 +1,29 @@
+body {
+    min-height: 100vh;
+    background: #f7f8fb;
+}
+
+.certify-logo {
+    width: 160px;
+    height: auto;
+    margin: 0.5rem 0 0.25rem;
+}
+
+.event-card {
+    margin-bottom: 1rem;
+    border: 1px solid #d7deea;
+    border-radius: 8px;
+}
+
+.certificate-status {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.certificate-status-active {
+    box-shadow: inset 0 0 0 1px #146c43;
+}
+
+.certificate-status-revoked {
+    box-shadow: inset 0 0 0 1px #6c757d;
+}

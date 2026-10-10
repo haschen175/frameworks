@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if certificate %}
+        {{ certificate.number }} – Сертификаты
+    {% else %}
+        Сертификат не найден – Сертификаты
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if certificate %}
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">{{ certificate.number }}</h1>
+                <p class="card-text">
+                    <strong>Мероприятие:</strong>
+                    {{ certificate.event.title|default:"Без названия" }}
+                </p>
+                <p class="card-text">
+                    <strong>Участник:</strong>
+                    {{ certificate.user.full_name }}
+                </p>
+                <p class="card-text">
+                    <strong>Балл:</strong> {{ certificate.result.score }}
+                </p>
+                <p class="card-text">
+                    <strong>Дата выдачи:</strong>
+                    {{ certificate.issued_at|date:"d.m.Y H:i" }}
+                </p>
+                <p class="card-text">
+                    <strong>Статус:</strong>
+                    {% include "certificates/includes/certificate_status.html" %}
+                </p>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="text-danger">Сертификат не найден</h1>
+        <p>Сертификат с указанным идентификатором отсутствует.</p>
+    {% endif %}
+
+    <a
+        href="{% url 'certificates:list' %}"
+        class="btn btn-outline-secondary mt-3"
+    >
+        ← к списку сертификатов
+    </a>
+{% endblock %}
