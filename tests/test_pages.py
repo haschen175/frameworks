@@ -35,6 +35,19 @@ def test_event_detail_and_missing():
     assert "Мероприятие не найдено" in missing.content.decode()
 
 
+def test_available_events_and_statistics():
+    available = Client().get("/events/available/?event_date=2026-10-15")
+    assert available.status_code == 200
+    text = available.content.decode()
+    assert "Олимпиада по информатике" in text
+    assert "Python для начинающих" not in text
+    statistics = Client().get("/certificates/statistics/")
+    assert statistics.status_code == 200
+    page = statistics.content.decode()
+    assert "Действующих сертификатов" in page
+    assert "Олимпиада по информатике" in page
+
+
 def test_certificate_list_and_detail():
     listing = Client().get("/certificates/")
     assert listing.status_code == 200

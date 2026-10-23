@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Мероприятия без сертификата на дату
+{% endblock %}
+
+{% block content %}
+    <h1>Мероприятия без сертификата на дату</h1>
+    <p>
+        Дата выдачи действующего сертификата. Мероприятие попадёт в список,
+        если в этот день по нему не выдавали действующий сертификат.
+    </p>
+    <form method="get" class="row g-2 align-items-end mb-4">
+        <div class="col-auto">
+            <label for="event_date" class="form-label">Дата</label>
+            <input
+                type="date"
+                id="event_date"
+                name="event_date"
+                class="form-control"
+                value="{{ event_date }}"
+            >
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </div>
+    </form>
+
+    {% if event_date %}
+        <h2>Дата: {{ event_date }}</h2>
+        {% for event in events %}
+            <article class="card event-card mb-3">
+                <div class="card-body">
+                    <h3>{{ event.title }}</h3>
+                    <p>Дата мероприятия: {{ event.event_date }}</p>
+                    <p>Проходной балл: {{ event.min_score }}</p>
+                </div>
+            </article>
+        {% empty %}
+            <p>На выбранную дату таких мероприятий нет.</p>
+        {% endfor %}
+    {% endif %}
+
+    <a href="{% url 'events:list' %}" class="btn btn-outline-secondary">
+        ← к списку мероприятий
+    </a>
+{% endblock %}

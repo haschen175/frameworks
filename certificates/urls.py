@@ -8,6 +8,7 @@ app_name = "certificates"
 
 urlpatterns = [
     path("", views.certificates, name="list"),
+    path("statistics/", views.statistics, name="statistics"),
     path(
         "<int:certificate_id>/",
         views.certificate_detail,

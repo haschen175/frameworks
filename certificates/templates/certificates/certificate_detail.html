@@ -15,18 +15,16 @@
                 <h1 class="card-title">{{ certificate.number }}</h1>
                 <p class="card-text">
                     <strong>Мероприятие:</strong>
-                    {{ certificate.event.title|default:"Без названия" }}
+                    {{ certificate.event_title|default:"Без названия" }}
                 </p>
                 <p class="card-text">
-                    <strong>Участник:</strong>
-                    {{ certificate.user.full_name }}
+                    <strong>Участник:</strong> {{ certificate.user_name }}
                 </p>
                 <p class="card-text">
-                    <strong>Балл:</strong> {{ certificate.result.score }}
+                    <strong>Балл:</strong> {{ certificate.score }}
                 </p>
                 <p class="card-text">
-                    <strong>Дата выдачи:</strong>
-                    {{ certificate.issued_at|date:"d.m.Y H:i" }}
+                    <strong>Дата выдачи:</strong> {{ certificate.issued_at }}
                 </p>
                 <p class="card-text">
                     <strong>Статус:</strong>

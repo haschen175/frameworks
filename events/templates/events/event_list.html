@@ -7,6 +7,11 @@
 {% block content %}
     <h1>Мероприятия</h1>
     <p>Всего мероприятий: {{ events|length }}</p>
+    <p>
+        <a href="{% url 'events:available' %}">
+            Найти мероприятие без сертификата на дату
+        </a>
+    </p>
 
     {% for event in events %}
         {% include "events/includes/event_card.html" %}

@@ -19,7 +19,8 @@
 - Django 5.2;
 - Django Template Language;
 - HTML5, CSS3, JavaScript, Bootstrap 5;
-- JSON для хранения данных;
+- SQLite и SQL (модуль sqlite3);
+- JSON как исходные данные для переноса в базу;
 - Git, pytest, flake8.
 
 ## 3. Предметная область
@@ -29,8 +30,8 @@
 - **Result** — результат участия (пользователь, мероприятие, балл, зачёт);
 - **Certificate** — сертификат (номер, связи, дата выдачи, признак аннулирования).
 
-Классы лежат в пакете `models/`. Данные хранятся в JSON.
-Django ORM, формы и база предметных данных на этом этапе не используются.
+Классы лежат в пакете `models/`. Веб-страницы читают данные из SQLite.
+Django ORM на этом этапе не используется: запросы выполняет модуль sqlite3.
 Файл `db.sqlite3` нужен только служебным приложениям Django (админка, сессии).
 
 ## 4. Структура проекта
@@ -39,7 +40,11 @@ Django ORM, формы и база предметных данных на это
 - `models/` — классы User, Event, Result, Certificate и функции коллекций;
 - `storage.py` — чтение и запись JSON через контекстный менеджер;
 - `utils.py` — безопасный ввод и интроспекция;
-- `data/` — JSON-файлы;
+- `data/` — JSON-файлы и база `certify.sqlite`;
+- `sql/schema.sql` — создание таблиц;
+- `sql/queries.sql` — проверенные SQL-запросы;
+- `db/database.py` — подключение к SQLite;
+- `db/import_json.py` — перенос JSON в таблицы;
 - `tests/` — тесты pytest;
 - `manage.py`, `certify/` — проект Django;
 - `homepage/`, `events/`, `certificates/` — приложения Django;
@@ -66,6 +71,8 @@ Django ORM, формы и база предметных данных на это
 | Мероприятие | `/events/<id>/` |
 | Список сертификатов | `/certificates/` |
 | Сертификат | `/certificates/<id>/` |
+| Мероприятия без сертификата на дату | `/events/available/` |
+| Статистика | `/certificates/statistics/` |
 
 Страницы собраны шаблонами Django: наследование `base.html`, блоки
 `title` и `content`, `{% include %}` для карточки и статуса, циклы,
@@ -94,7 +101,33 @@ flake8
 python manage.py check
 ```
 
-## 9. Дальнейшее развитие
+## 9. База данных SQLite
 
-Следующие этапы: перенос данных из JSON в базу через Django ORM,
-формы создания и изменения объектов, аутентификация пользователей.
+Таблицы создаются файлом `sql/schema.sql`. Дата хранится строкой
+`YYYY-MM-DD`. Признак аннулирования и зачёта — INTEGER: 0 или 1.
+
+| Таблица | Поля | Ключи |
+| --- | --- | --- |
+| users | id, full_name, email, role | id — PRIMARY KEY |
+| events | id, title, event_date, description, min_score | id — PRIMARY KEY |
+| results | id, user_id, event_id, score, passed | id — PRIMARY KEY; user_id → users.id; event_id → events.id |
+| certificates | id, user_id, event_id, result_id, number, issued_at, is_revoked | id — PRIMARY KEY; user_id → users.id; event_id → events.id; result_id → results.id |
+
+Перенос данных:
+
+```
+python -m db.import_json
+```
+
+В `sql/queries.sql` больше 10 запросов: списки, WHERE, JOIN, COUNT, AVG,
+GROUP BY, HAVING и подзапрос NOT IN. Представления Django получают строки
+через `sqlite3.Row` и передают их в шаблоны. Значения в запросы подставляются
+параметрами `?`.
+
+Страницы из базы: список мероприятий, карточка мероприятия, список и карточка
+сертификата, поиск мероприятия без сертификата на дату, статистика.
+
+## 10. Дальнейшее развитие
+
+На следующих практических работах база подключается через Django ORM.
+Затем — формы создания и изменения объектов и аутентификация пользователей.

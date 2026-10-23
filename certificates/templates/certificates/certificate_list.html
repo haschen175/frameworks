@@ -7,6 +7,7 @@
 {% block content %}
     <h1>Сертификаты</h1>
     <p>Всего сертификатов: {{ certificates|length }}</p>
+    <p>Действующих сертификатов: {{ active_count }}</p>
 
     {% if certificates %}
         {% for certificate in certificates %}
@@ -14,12 +15,11 @@
                 <div class="card-body">
                     <h2 class="card-title">{{ certificate.number }}</h2>
                     <p class="card-text">
-                        {{ certificate.event.title }} —
-                        {{ certificate.user.full_name }}
+                        {{ certificate.event_title }} —
+                        {{ certificate.user_name }}
                     </p>
                     <p class="card-text">
-                        Дата выдачи:
-                        {{ certificate.issued_at|date:"d.m.Y" }}
+                        Дата выдачи: {{ certificate.issued_at }}
                     </p>
                     <p class="card-text">
                         Статус:

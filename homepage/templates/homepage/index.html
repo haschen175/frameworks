@@ -11,7 +11,7 @@
     </p>
     <p>
         Здесь можно посмотреть мероприятия, проходной балл и уже
-        выданные сертификаты. Данные читаются из JSON-файлов проекта.
+        выданные сертификаты. Страницы читают данные из базы SQLite.
     </p>
     <p>Основные разделы:</p>
     <a
@@ -22,8 +22,14 @@
     </a>
     <a
         href="{% url 'certificates:list' %}"
-        class="btn btn-secondary"
+        class="btn btn-secondary me-2"
     >
         Сертификаты
+    </a>
+    <a
+        href="{% url 'certificates:statistics' %}"
+        class="btn btn-outline-primary"
+    >
+        Статистика
     </a>
 {% endblock %}
